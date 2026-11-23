@@ -1,0 +1,119 @@
+EX.04
+To create a binary tree and perform Preorder, Inorder, and Postorder traversals using
+recursion in C++.
+Code
+#include <iostream>
+using namespace std;
+struct node
+{
+ int data;
+ node *left;
+ node *right;
+};
+class binary
+{
+private:
+ node *root;
+public:
+ binary()
+ {
+ root = NULL;
+ }
+ node* create()
+ {
+ int value; cout << "\nEnter node value (-1 for no node): ";
+ cin >> value;
+ if (value == -1)
+ return NULL;
+ node *newnode = new node;
+ newnode->data = value;
+ cout << "Enter left child of " << value << ": ";
+ newnode->left = create();
+ cout << "Enter right child of " << value << ": ";
+ newnode->right = create();
+ return newnode;
+ }
+ void build()
+ {
+ cout << "\nCreate Binary Tree\n";
+ root = create();
+ }
+ // Preorder Traversal
+ void preorder(node *temp)
+ {
+ if (temp == NULL) return;
+ cout << temp->data << " ";
+ preorder(temp->left);
+ preorder(temp->right);
+ }
+ // Inorder Traversal
+ void inorder(node *temp)
+ {
+ if (temp == NULL)
+ return;
+ inorder(temp->left);
+ cout << temp->data << " ";
+ inorder(temp->right);
+ }
+ // Postorder Traversal
+ void postorder(node *temp)
+ {
+ if (temp == NULL)
+ return;
+ postorder(temp->left);
+ postorder(temp->right);
+ cout << temp->data << " ";
+ } void displayPre()
+ {
+ cout << "\nPreorder Traversal: ";
+ preorder(root);
+ cout << endl;
+ }
+ void displayIn()
+ {
+ cout << "\nInorder Traversal: ";
+ inorder(root);
+ cout << endl;
+ }
+ void displayPost()
+ {
+ cout << "\nPostorder Traversal: ";
+ postorder(root);
+ cout << endl;
+ }
+};
+int main()
+{
+ binary b;
+ int choice; do
+ {
+ cout << "\n========== MENU ==========";
+ cout << "\n1. Create Binary Tree";
+ cout << "\n2. Preorder Traversal";
+ cout << "\n3. Inorder Traversal";
+ cout << "\n4. Postorder Traversal";
+ cout << "\n5. Exit";
+ cout << "\nEnter your choice: ";
+ cin >> choice;
+ switch (choice)
+ {
+ case 1:
+ b.build();
+ break;
+ case 2:
+ b.displayPre();
+ break;
+ case 3:
+ b.displayIn();
+ break;
+ case 4:
+ b.displayPost();
+ break; case 5:
+ cout << "\nExiting Program...";
+ break;
+ default:
+ cout << "\nInvalid Choice!";
+ }
+ } while (choice != 5);
+ return 0;
+}
